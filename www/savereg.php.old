@@ -1,0 +1,70 @@
+<?php
+define('FACEBOOK_APP_ID', '306603026080483');
+define('FACEBOOK_SECRET', '1c89ddc53ec7398076690f7b5ecb41b5');
+
+function parse_signed_request($signed_request, $secret) {
+  list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
+
+  // decode the data
+  $sig = base64_url_decode($encoded_sig);
+  $data = json_decode(base64_url_decode($payload), true);
+
+  if (strtoupper($data['algorithm']) !== 'HMAC-SHA256') {
+    error_log('Unknown algorithm. Expected HMAC-SHA256');
+    return null;
+  }
+
+  // check sig
+  $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
+  if ($sig !== $expected_sig) {
+    error_log('Bad Signed JSON signature!');
+    return null;
+  }
+
+  return $data;
+}
+
+function base64_url_decode($input) {
+    return base64_decode(strtr($input, '-_', '+/'));
+}
+
+if ($_REQUEST) {
+  echo '<p>signed_request contents:</p>';
+  $response = parse_signed_request($_REQUEST['signed_request'], 
+                                   FACEBOOK_SECRET);
+  echo '<pre>';
+  print_r($response);
+  echo '</pre>';
+
+
+$fb_userid = $response['user_id'];
+$fb_name = $response['registration']['name'];
+$fb_loc_name = $response['registration']['location']['name'];
+
+echo "<body><p>This is your Facebook ID:";
+echo "$fb_userid";
+echo "<br />";
+echo "$fb_name";
+echo "<br />";
+echo "$fb_loc_name";
+echo "</p></body>";
+
+//if(mysql_num_rows(mysql_query("SELECT userid FROM users WHERE fb_userid = '$fb_userid'"))){
+// Code inside if block if userid is already there
+//        $query = "UPDATE users SET name='$request['registration'['name']]' WHERE fb_userid='$fb_userid'";
+//        print_r($query);
+//}
+//else {
+//       print_r("No Record Found! Time to Add you to Registry...");
+//}
+
+//mysql_close($conn);
+
+//echo '</pre>';
+
+} else {
+  echo '$_REQUEST is empty';
+}
+
+
+?>

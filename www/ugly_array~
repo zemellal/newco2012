@@ -1,0 +1,35 @@
+signed_request contents:
+
+Array
+(
+    [algorithm] => HMAC-SHA256
+    [expires] => 1336273200
+    [issued_at] => 1336269007
+    [oauth_token] => AAAEW2pR04uMBACwMxUgaTYmfQQhEwCCwUVeY6EG2uBmxalZC5v2jGOoQ59qAzvFYr0obR1ZAFPmjQU5aNpenGbx1lGXszAz9NyrrYj1AZDZD
+    [registration] => Array
+        (
+            [name] => Lorenzo Zemella
+            [birthday] => 05/25/1989
+            [gender] => male
+            [location] => Array
+                (
+                    [name] => Madison, Wisconsin
+                    [id] => 1.0757259593195E+14
+                )
+
+            [email] => master9zero@gmail.com
+        )
+
+    [registration_metadata] => Array
+        (
+            [fields] => name,birthday,gender,location,email
+        )
+
+    [user] => Array
+        (
+            [country] => us
+            [locale] => en_US
+        )
+
+    [user_id] => 609195607
+)

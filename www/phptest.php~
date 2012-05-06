@@ -1,0 +1,83 @@
+<html>
+<h1>PHP Script to Test MySQL Connection</h1>
+
+<LINK REL=StyleSheet HREF="CSS/home.css" TYPE="text/css" MEDIA=screen>
+
+<body >
+<title> newco </title>
+
+<img src="/images/next_banner.png" >
+
+<HR WIDTH="100%" COLOR="#dddddd" SIZE="2">
+<br>
+
+
+<h1>Coming Soon...</h1>
+
+
+
+<br />
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=306603026080483";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>
+
+
+<br />
+
+<?php
+ini_set('display_errors', 1);
+error_reporting (E_ALL);
+$conn = mysql_connect("localhost", "root", "your_root_password") or die (mysql_error());
+//if ($conn) echo "Connected!";
+if (! $conn) 
+{
+echo "NOT CONNECTED!!!";
+ $error = 'Unable to connect to the database server.';
+ include 'error.html.php';
+ exit();
+}
+mysql_select_db("newco", $conn);
+        $result = mysql_query ("SELECT * FROM users");
+        echo "<table border='1' align='center'><tr><th>Username</th><th>Sex</th><th>Date of Birth</th></tr>";
+        while($row = mysql_fetch_array($result))
+        {
+                echo "<tr>";
+                echo "<td>" . $row['username'] . "</td>";
+                echo "<td>" . $row['sex'] . "</td>";
+                echo "<td>" . $row['dob'] . "</td>";
+                echo "</tr>";
+        }
+        echo "</table>";
+        mysql_close($conn);
+?>
+
+<br />
+
+<form name="input" action="signup.html" method="get">
+<input type="submit" value="Sign Up" />
+</form>
+<br />
+
+
+<a href="about.html" style="color:#888888;">About Us</a>
+
+<br />
+<br />
+
+
+<img src="/images/next_afterpay.png">
+
+<fb:login-button
+registration-url="register.php" />
+
+
+
+
+

@@ -1,0 +1,67 @@
+<html>
+<LINK REL=StyleSheet HREF="CSS/home.css" TYPE="text/css" MEDIA=screen>
+
+<body >
+<title> newco </title>
+
+<img src="/images/next_banner.png" >
+
+<HR WIDTH="100%" COLOR="#dddddd" SIZE="2">
+<br>
+
+
+<h1>Coming Soon...</h1>
+
+
+
+<br />
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=306603026080483";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>
+
+
+<br />
+
+<?php
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpass = 'AJcmLZ20!2';
+
+$conn = odbc_connect('localhost','root','AJcmLZ20!2') or die('could not connect');
+$rs = odbc_exec($conn, 'SELECT * FROM users');
+
+odbc_fetch_row($rs);
+$user = odbc_result($rs,1);
+echo $user;
+
+$dbname = 'newcodatabase';
+$selected = mysql_select_db($dbname, $conn);
+$data = mysql_query("select * from users");
+
+while($user = mysql_fetch_array($data)) {
+echo "User Name:".$user{'username'}.;
+}
+
+mysql_close($conn);
+?>
+
+<br />
+
+
+<a href="about.html" style="color:#bbbbbb;">About Us</a>
+
+<br />
+
+
+<img src="/images/next_afterpay.png"> 
+
+
+
+</body></html>

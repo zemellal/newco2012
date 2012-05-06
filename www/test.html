@@ -1,0 +1,31 @@
+<?php
+ini_set("display_errors", true); 
+error_reporting(E_ALL); 
+?>
+
+<html>
+<h1>MySQL Connection Test Page...</h1>
+
+
+<?php
+	echo "Hello World!";
+	$conn = mysqli_connect ("localhost", "root", "AJcmLZ20!2") or die(mysql_error());
+	if (! $conn) echo "NOT Connected!";
+	if ($conn) echo "Connected"; 
+	mysql_select_db ("newco", $conn);
+	$result = mysql_query ("SELECT * FROM users");
+	echo "<table border='1'><tr><th>Username</th><th>Sex</th><th>Date of Birth</th></tr>";
+	while($row = mysql_fetch_array($result))
+ 	{
+ 		echo "<tr>";
+  		echo "<td>" . $row['username'] . "</td>";
+  		echo "<td>" . $row['sex'] . "</td>";
+  		echo "<td>" . $row['dob'] . "</td>";
+  		echo "</tr>";
+  	}
+	echo "</table>";
+	mysql_close($conn);
+?>
+<body>
+</body>
+</html>
